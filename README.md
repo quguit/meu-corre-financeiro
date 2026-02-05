@@ -1,5 +1,15 @@
 # 🌊 FamilyFinanceFlow  
 
+## Project Status
+
+This project was developed as a **frontend-focused study**, exploring:
+- UI design
+- color palettes
+- responsive layouts
+- practical React patterns
+
+The core learning goals have been achieved, and the project is not under active development.
+
 **A mobile-friendly finance tracker for families** | *Node.js + React + SQLite*  
 
 ## 📖 Storytelling  
