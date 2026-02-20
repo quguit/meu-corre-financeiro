@@ -1,62 +1,83 @@
-# 🌊 FamilyFinanceFlow  
+# 💰 Meu Corre Financeiro
 
-## Project Status
+Sistema de controle financeiro pessoal e empresarial, integrante do ecossistema **Meu Corre**.
 
-This project was developed as a **frontend-focused study**, exploring:
-- UI design
-- color palettes
-- responsive layouts
-- practical React patterns
-
-The core learning goals have been achieved, and the project is not under active development.
-
-**A mobile-friendly finance tracker for families** | *Node.js + React + SQLite*  
-
-## 📖 Storytelling  
-
-Meet **FamilyFinanceFlow** – the solution I built to end the monthly chaos of splitting bills, tracking shared expenses, and projecting future balances in my household.  
-
-### The Problem:  
-Every month, my family faced the same frustrations:  
-- "Who owes what for the rent?"  
-- "How much will we spend on groceries next month?"  
-- "Can we afford this new couch if we pay in 12 installments?"  
-
-Spreadsheets got messy, and finance apps didn’t handle **shared expenses**, **installment tracking**, or **family-specific budgeting** well.  
-
-### The Solution:  
-I created **FamilyFinanceFlow** to:  
-✅ **Track fixed costs** (rent, subscriptions, insurance)  
-✅ **Split expenses** fairly between family members  
-✅ **Auto-calculate installment plans** (showing future impacts)  
-✅ **Project monthly balances** with interactive charts  
-✅ **Plan future purchases** based on savings  
-
-Built with **React** for a mobile-friendly UI and **Node.js + SQLite** for lightweight data storage. Perfect for running locally at home (`localhost` or WiFi access) or deploying later.  
+Desenvolvido inicialmente como um estudo prático de arquitetura frontend e organização financeira, o projeto evolui agora para uma base sólida de um futuro sistema financeiro profissional.
 
 ---
 
-## 🛠️ Tech Stack  
-- **Frontend**: React (PWA-ready)  
-- **Backend**: Node.js + Express  
-- **Database**: SQLite (no server needed)  
-- **Charts**: Chart.js  
-- **Styling**: Tailwind CSS  
+## 🚀 Visão do Produto
 
-## ▶️ Quick Start  
-1. Clone the repo:  
-   ```bash  
-   git clone https://github.com/yourusername/FamilyFinanceFlow.git 
-   ```
-2. Install dependencies:
-    ```bash
-    cd FamilyFinanceFlow  
-    npm install # For both backend and frontend  
-    ```
-3. Run the app
-    ```bash
-    npm run dev #Starts both backend (300) and frontend (5173)
-    ```
-4. Access via:
-- http://localhost:5173 (in machine)
-- http://YOUR_LOCAL_IP:5173 (other devices on WIFI)
+O **Meu Corre Financeiro** nasce com o objetivo de organizar:
+
+- Entradas e saídas
+- Controle de contas
+- Saldo mensal
+- Despesas parceladas
+- Entradas fixas (salário)
+- Cartões de crédito e faturas
+- Planejamento financeiro futuro
+
+A longo prazo, o sistema poderá integrar-se ao:
+
+- Meu Corre CRM
+- Gestão de clientes
+- Controle de vendas
+- ERP empresarial
+
+---
+
+## 🧠 Origem do Projeto
+
+O projeto começou como uma solução para organizar finanças familiares, permitindo:
+
+- Divisão de despesas
+- Projeção de saldos futuros
+- Planejamento de compras parceladas
+- Visualização de impacto financeiro ao longo dos meses
+
+Agora, o foco é evoluir para um sistema modular e escalável.
+
+---
+
+## 🏗️ Arquitetura Atual
+
+### Frontend
+- React (PWA-ready)
+
+### Backend
+- Node.js + Express
+
+### Banco de Dados
+- SQLite
+
+---
+
+## 🎯 Próxima Evolução
+
+A nova versão será desenvolvida com:
+
+- Flutter (mobile)
+- FastAPI (backend moderno)
+- PostgreSQL (produção)
+- Estrutura multiusuário
+- Integração com outros módulos Meu Corre
+
+---
+
+## 📌 Roadmap
+
+- [ ] MVP mobile Flutter
+- [ ] Backend FastAPI
+- [ ] Controle de múltiplas contas
+- [ ] Sistema de faturas automáticas
+- [ ] Dashboard financeiro
+- [ ] Integração com CRM
+- [ ] Estrutura SaaS
+
+---
+
+## 👤 Autor
+
+Guilherme Pereira Nascimento  
+Projeto integrante do ecossistema **Meu Corre**
