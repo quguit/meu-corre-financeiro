@@ -1,78 +1,166 @@
-📋 1️⃣ ANÁLISE DE REQUISITOS
-🎯 Objetivo do Sistema
+# 📋 Análise de Requisitos
 
-O Meu Corre Financeiro será um sistema de gestão financeira pessoal e empresarial, permitindo controle de:
+Projeto: Meu Corre Financeiro
 
-Entradas
+---
 
-Saídas
+# 1. 📌 Visão Geral
 
-Contas bancárias
+O Meu Corre Financeiro é um sistema de gestão financeira pessoal e empresarial, integrante do ecossistema Meu Corre.
 
-Cartões de crédito
+Seu objetivo é permitir o controle estruturado de:
 
-Parcelamentos
+- Entradas financeiras
+- Saídas financeiras
+- Contas bancárias
+- Cartões de crédito
+- Despesas parceladas
+- Lançamentos recorrentes
+- Histórico financeiro por período
+- Organização financeira por empresa
 
-Lançamentos recorrentes
+O sistema deve nascer simples (MVP), mas com arquitetura preparada para evolução futura para ERP financeiro e modelo SaaS multiempresa.
 
-Saldo mensal
+---
 
-Histórico financeiro
+# 2. 🎯 Objetivo do Sistema
 
-✅ Requisitos Funcionais (RF)
-👤 Gestão de Usuário
+Desenvolver uma base financeira sólida, escalável e organizada, capaz de:
 
-RF01 – O sistema deve permitir cadastro de usuário
-RF02 – O sistema deve permitir login
-RF03 – O sistema deve permitir que um usuário pertença a uma ou mais organizações
+- Organizar finanças pessoais
+- Evoluir para controle financeiro empresarial
+- Integrar-se futuramente ao Meu Corre CRM
+- Permitir expansão para múltiplas organizações
+- Servir como base para ERP financeiro
 
-🏢 Gestão de Organização
+---
 
-RF04 – O sistema deve permitir criar organização
-RF05 – O sistema deve permitir adicionar membros à organização
-RF06 – O sistema deve permitir definir permissões (admin, membro)
+# 3. 👤 Perfis do Sistema
 
-🏦 Gestão de Contas
+O sistema deverá permitir múltiplos usuários associados a múltiplas organizações.
 
-RF07 – O sistema deve permitir cadastrar contas financeiras
-RF08 – O sistema deve permitir definir tipo da conta (banco, cartão, caixa)
-RF09 – O sistema deve armazenar saldo inicial
-RF10 – O sistema deve calcular saldo atual automaticamente
+Perfis previstos:
 
-💸 Gestão de Transações
+- Usuário comum
+- Administrador da organização
 
-RF11 – O sistema deve permitir cadastrar transações
-RF12 – A transação deve possuir:
+---
 
-valor
+# 4. ✅ Requisitos Funcionais (RF)
 
-tipo (entrada/saída)
+## 4.1 Gestão de Usuários
 
-categoria
+RF01 – O sistema deve permitir cadastro de usuário.  
+RF02 – O sistema deve permitir autenticação de usuário.  
+RF03 – O sistema deve permitir que um usuário pertença a uma ou mais organizações.
 
-data
+---
 
-conta associada
+## 4.2 Gestão de Organizações
 
-descrição
+RF04 – O sistema deve permitir criar organização.  
+RF05 – O sistema deve permitir associar usuários à organização.  
+RF06 – O sistema deve permitir definir papel do usuário (admin, membro).
 
-RF13 – O sistema deve permitir parcelamento automático
-RF14 – O sistema deve gerar parcelas futuras automaticamente
-RF15 – O sistema deve permitir transações recorrentes
-RF16 – O sistema deve manter histórico imutável
+---
 
-📊 Relatórios
+## 4.3 Gestão de Contas
 
-RF17 – O sistema deve calcular saldo total
-RF18 – O sistema deve calcular saldo por conta
-RF19 – O sistema deve apresentar histórico mensal
-RF20 – O sistema deve permitir consulta por período
+RF07 – O sistema deve permitir cadastrar contas financeiras.  
+RF08 – A conta deve possuir:
 
-🔒 Requisitos Não Funcionais (RNF)
+- nome
+- tipo (banco, cartão, caixa)
+- saldo inicial
 
-RNF01 – API REST
-RNF02 – Arquitetura escalável
-RNF03 – Banco relacional
-RNF04 – Separação clara entre camadas
-RNF05 – Segurança com autenticação futura JWT
-RNF06 – Estrutura preparada para SaaS
+RF09 – O sistema deve calcular saldo atual automaticamente com base nas transações.
+
+---
+
+## 4.4 Gestão de Categorias
+
+RF10 – O sistema deve permitir cadastrar categorias.  
+RF11 – A categoria deve ser classificada como:
+
+- Receita
+- Despesa
+
+---
+
+## 4.5 Gestão de Transações
+
+RF12 – O sistema deve permitir registrar transações financeiras.
+
+Cada transação deve conter:
+
+- valor
+- tipo (entrada ou saída)
+- categoria
+- conta associada
+- data
+- descrição
+- indicador de recorrência
+- indicador de parcelamento
+
+---
+
+RF13 – O sistema deve permitir registrar despesas parceladas.  
+RF14 – O sistema deve gerar automaticamente as parcelas futuras.  
+RF15 – O sistema deve permitir lançamentos recorrentes (ex: salário mensal).  
+RF16 – O sistema deve manter histórico financeiro completo.
+
+---
+
+## 4.6 Relatórios
+
+RF17 – O sistema deve calcular saldo total da organização.  
+RF18 – O sistema deve calcular saldo por conta.  
+RF19 – O sistema deve permitir consulta por período.  
+RF20 – O sistema deve permitir visualização do histórico mensal.
+
+---
+
+# 5. 🔒 Requisitos Não Funcionais (RNF)
+
+RNF01 – O sistema deve utilizar arquitetura REST.  
+RNF02 – O backend deve ser desenvolvido em FastAPI.  
+RNF03 – O frontend mobile deve ser desenvolvido em Flutter.  
+RNF04 – O banco de dados deve ser relacional.  
+RNF05 – A estrutura deve permitir migração futura para PostgreSQL.  
+RNF06 – O sistema deve ser preparado para modelo SaaS multiempresa.  
+RNF07 – A lógica de saldo não deve depender de armazenamento manual, devendo ser calculada a partir das transações.
+
+---
+
+# 6. 📈 Escalabilidade Futura
+
+O sistema deve permitir expansão para:
+
+- Controle de fluxo de caixa empresarial
+- Contas a pagar e a receber
+- Centro de custo
+- Geração automática de DRE
+- Integração com CRM
+- Integração bancária
+- Multiempresa com isolamento de dados
+- Modelo de assinatura SaaS
+
+---
+
+# 7. 🧠 Decisões Arquiteturais Iniciais
+
+- O saldo não será armazenado diretamente na conta.
+- Parcelamentos serão tratados como múltiplas transações vinculadas.
+- Transações recorrentes gerarão instâncias futuras automaticamente.
+- Cada dado financeiro estará vinculado obrigatoriamente a uma organização.
+
+---
+
+# 8. 🎓 Objetivo de Aprendizado
+
+Este projeto também tem como meta:
+
+- Desenvolver autonomia em modelagem de sistemas
+- Aprimorar capacidade de análise de requisitos
+- Consolidar prática em arquitetura backend
+- Desenvolver visão de produto escalável
