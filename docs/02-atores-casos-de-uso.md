@@ -1,118 +1,210 @@
-👥 2️⃣ ATORES DO SISTEMA
-🎭 Atores Primários
-1️⃣ Usuário
+# 👥 Atores e Casos de Uso
 
-Realiza login
+Projeto: Meu Corre Financeiro
 
-Gerencia contas
+---
 
-Cadastra transações
+# 1. 🎭 Identificação dos Atores
 
-Consulta saldo
+## 1.1 Atores Primários
 
-Gera relatórios
+### 👤 Usuário
 
-2️⃣ Administrador da Organização
+Representa a pessoa que utiliza o sistema para gerenciar finanças.
 
-Gerencia membros
+Responsabilidades:
 
-Define permissões
+- Autenticar-se
+- Criar e gerenciar organização
+- Cadastrar contas
+- Registrar transações
+- Consultar saldos
+- Gerar relatórios
 
-Gerencia configurações da organização
+---
 
-🎭 Atores Secundários (Futuros)
-3️⃣ Sistema Bancário (Integração futura)
+### 👑 Administrador da Organização
 
-Importa extratos
+Extensão do ator Usuário com privilégios adicionais.
 
-Sincroniza movimentações
+Responsabilidades adicionais:
 
-4️⃣ Sistema Meu Corre CRM
+- Gerenciar membros da organização
+- Definir permissões
+- Configurar estrutura organizacional
 
-Envia informações de vendas
+---
 
-Recebe dados financeiros
+## 1.2 Atores Secundários (Futuros)
 
-🧩 3️⃣ CASOS DE USO PRINCIPAIS
+### 🏦 Sistema Bancário (Integração futura)
 
-Vou estruturar como base para diagrama de casos de uso.
+- Fornecer extratos
+- Permitir conciliação bancária
+- Sincronizar movimentações
 
-📌 UC01 – Autenticar Usuário
+---
 
-Ator: Usuário
-Fluxo:
+### 🔄 Sistema Meu Corre CRM (Futuro)
 
-Inserir email
+- Enviar dados de vendas
+- Integrar contas a receber
+- Integrar fluxo de caixa
 
-Inserir senha
+---
 
-Validar credenciais
+# 2. 📌 Casos de Uso
 
-Acessar organização
+---
 
-📌 UC02 – Criar Organização
+## UC01 – Autenticar Usuário
 
-Ator: Usuário
-Fluxo:
+**Ator:** Usuário
 
-Informar nome
+Fluxo Principal:
 
-Criar organização
+1. Informar email
+2. Informar senha
+3. Sistema valida credenciais
+4. Sistema libera acesso
 
-Associar usuário como admin
+Fluxo Alternativo:
 
-📌 UC03 – Cadastrar Conta
+- Credenciais inválidas → exibir erro
 
-Ator: Usuário
-Fluxo:
+---
 
-Informar nome
+## UC02 – Criar Organização
 
-Definir tipo
+**Ator:** Usuário
 
-Informar saldo inicial
+Fluxo Principal:
 
-Salvar
+1. Informar nome da organização
+2. Sistema cria organização
+3. Sistema associa usuário como administrador
 
-📌 UC04 – Registrar Transação
+---
 
-Ator: Usuário
-Fluxo:
+## UC03 – Gerenciar Membros da Organização
 
-Informar valor
+**Ator:** Administrador
 
-Selecionar tipo
+Fluxo Principal:
 
-Selecionar conta
+1. Selecionar organização
+2. Convidar usuário
+3. Definir papel (admin ou membro)
 
-Selecionar categoria
+---
 
-Definir data
+## UC04 – Cadastrar Conta
 
-Salvar
+**Ator:** Usuário
 
-Extensão:
+Fluxo Principal:
 
-Se parcelado → gerar múltiplas transações
+1. Informar nome da conta
+2. Selecionar tipo (banco, cartão, caixa)
+3. Informar saldo inicial
+4. Salvar
 
-📌 UC05 – Calcular Saldo
+---
 
-Ator: Sistema
-Fluxo:
+## UC05 – Cadastrar Categoria
 
-Somar entradas
+**Ator:** Usuário
 
-Subtrair saídas
+Fluxo Principal:
 
-Atualizar saldo por conta
+1. Informar nome da categoria
+2. Definir tipo (receita ou despesa)
+3. Salvar
 
-📌 UC06 – Consultar Relatório
+---
 
-Ator: Usuário
-Fluxo:
+## UC06 – Registrar Transação
 
-Selecionar período
+**Ator:** Usuário
 
-Visualizar saldo
+Fluxo Principal:
 
-Visualizar transações
+1. Informar valor
+2. Selecionar tipo (entrada/saída)
+3. Selecionar conta
+4. Selecionar categoria
+5. Informar data
+6. Informar descrição
+7. Salvar
+
+---
+
+## UC07 – Registrar Transação Parcelada
+
+**Ator:** Usuário
+
+Extensão de UC06.
+
+Fluxo Principal:
+
+1. Informar número de parcelas
+2. Sistema divide valor
+3. Sistema gera transações futuras vinculadas
+
+---
+
+## UC08 – Registrar Transação Recorrente
+
+**Ator:** Usuário
+
+Fluxo Principal:
+
+1. Marcar como recorrente
+2. Definir periodicidade (mensal)
+3. Sistema gera lançamentos futuros automaticamente
+
+---
+
+## UC09 – Consultar Saldo
+
+**Ator:** Usuário
+
+Fluxo Principal:
+
+1. Selecionar organização
+2. Sistema calcula saldo total
+3. Sistema exibe saldo
+
+---
+
+## UC10 – Consultar Relatório por Período
+
+**Ator:** Usuário
+
+Fluxo Principal:
+
+1. Selecionar período
+2. Sistema busca transações
+3. Sistema calcula resultado do período
+4. Exibir relatório
+
+---
+
+# 3. 🔗 Relações Entre Casos de Uso
+
+- UC07 (Transação Parcelada) estende UC06 (Registrar Transação)
+- UC08 (Transação Recorrente) estende UC06
+- UC03 depende de UC02 (é necessário existir organização)
+- UC09 depende de UC06 (existência de transações)
+
+---
+
+# 4. 🎯 Limite do MVP
+
+Para o MVP inicial, serão implementados:
+
+- UC04 – Cadastrar Conta
+- UC05 – Cadastrar Categoria
+- UC06 – Registrar Transação
+- UC09 – Consultar Saldo
+- UC10 – Consultar Relatório

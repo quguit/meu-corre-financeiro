@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+
+actor Usuario
+actor Administrador
+actor "Sistema Bancario" as Banco
+actor "Meu Corre CRM" as CRM
+
+rectangle "Meu Corre Financeiro" {
+
+  (Autenticar Usuario) as UC01
+  (Criar Organizacao) as UC02
+  (Gerenciar Membros) as UC03
+  (Cadastrar Conta) as UC04
+  (Cadastrar Categoria) as UC05
+  (Registrar Transacao) as UC06
+  (Registrar Transacao Parcelada) as UC07
+  (Registrar Transacao Recorrente) as UC08
+  (Consultar Saldo) as UC09
+  (Consultar Relatorio por Periodo) as UC10
+  (Importar Extrato) as UC11
+  (Receber Dados de Vendas) as UC12
+}
+
+Usuario --> UC01
+Usuario --> UC02
+Usuario --> UC04
+Usuario --> UC05
+Usuario --> UC06
+Usuario --> UC09
+Usuario --> UC10
+
+Administrador --> UC03
+
+UC07 ..> UC06 : <<extend>>
+UC08 ..> UC06 : <<extend>>
+
+Banco --> UC11
+CRM --> UC12
+
+@enduml

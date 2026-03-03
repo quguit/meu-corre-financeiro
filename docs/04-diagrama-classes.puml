@@ -1,0 +1,93 @@
+@startuml
+
+class User {
+  +id: UUID
+  +name: string
+  +email: string
+  +password_hash: string
+  +created_at: datetime
+}
+
+class Organization {
+  +id: UUID
+  +name: string
+  +created_at: datetime
+}
+
+class OrganizationUser {
+  +id: UUID
+  +role: string
+}
+
+class Account {
+  +id: UUID
+  +name: string
+  +type: string
+  +initial_balance: decimal
+  +created_at: datetime
+}
+
+class Category {
+  +id: UUID
+  +name: string
+  +type: string
+}
+
+class Transaction {
+  +id: UUID
+  +date: date
+  +title: string
+  +amount: decimal
+  +type: string
+  +status: string
+  +reversal_reason: string
+  +created_at: datetime
+}
+
+class RecurringTransaction {
+  +id: UUID
+  +title: string
+  +amount: decimal
+  +type: string
+  +frequency: string
+  +start_date: date
+  +end_date: date
+  +active: boolean
+}
+
+class InstallmentPlan {
+  +id: UUID
+  +total_amount: decimal
+  +total_installments: int
+  +start_date: date
+}
+
+class Installment {
+  +id: UUID
+  +installment_number: int
+  +due_date: date
+  +amount: decimal
+}
+
+' ================= RELACIONAMENTOS =================
+
+User "1" -- "N" OrganizationUser
+Organization "1" -- "N" OrganizationUser
+
+Organization "1" -- "N" Account
+Organization "1" -- "N" Category
+Organization "1" -- "N" Transaction
+Organization "1" -- "N" RecurringTransaction
+Organization "1" -- "N" InstallmentPlan
+
+Account "1" -- "N" Transaction
+Category "1" -- "N" Transaction
+
+RecurringTransaction "1" -- "N" Transaction : generates >
+
+InstallmentPlan "1" -- "N" Installment
+Installment "1" -- "1" Transaction
+
+Transaction "0..1" -- "0..1" Transaction : reverses >
+
+@enduml
