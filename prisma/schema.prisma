@@ -12,3 +12,137 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String             @id @default(uuid())
+  name           String
+  email          String             @unique
+  passwordHash   String
+  createdAt      DateTime           @default(now())
+
+  organizations  OrganizationUser[]
+}
+
+model Organization {
+  id          String               @id @default(uuid())
+  name        String
+  createdAt   DateTime             @default(now())
+
+  users       OrganizationUser[]
+  accounts    Account[]
+  categories  Category[]
+  transactions Transaction[]
+  recurringTransactions RecurringTransaction[]
+  installmentPlans InstallmentPlan[]
+}
+
+model OrganizationUser {
+  id              String        @id @default(uuid())
+  role            String
+
+  userId          String
+  organizationId  String
+
+  user            User          @relation(fields: [userId], references: [id])
+  organization    Organization  @relation(fields: [organizationId], references: [id])
+
+  @@unique([userId, organizationId])
+}
+
+model Account {
+  id            String        @id @default(uuid())
+  name          String
+  type          String
+  initialBalance Decimal
+  createdAt     DateTime      @default(now())
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  transactions  Transaction[]
+}
+
+model Category {
+  id            String        @id @default(uuid())
+  name          String
+  type          String
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  transactions  Transaction[]
+}
+
+model Transaction {
+  id              String    @id @default(uuid())
+  date            DateTime
+  title           String
+  amount          Decimal
+  type            String
+  status          String
+  reversalReason  String?
+  createdAt       DateTime  @default(now())
+
+  organizationId  String
+  accountId       String
+  categoryId      String
+
+  organization    Organization @relation(fields: [organizationId], references: [id])
+  account         Account      @relation(fields: [accountId], references: [id])
+  category        Category     @relation(fields: [categoryId], references: [id])
+
+  reversedFromId  String?
+  reversedFrom    Transaction? @relation("Reversal", fields: [reversedFromId], references: [id])
+  reversal        Transaction? @relation("Reversal")
+}
+
+model RecurringTransaction {
+  id            String   @id @default(uuid())
+  title         String
+  amount        Decimal
+  type          String
+  frequency     String
+  startDate     DateTime
+  endDate       DateTime?
+  active        Boolean  @default(true)
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  transactions   Transaction[]
+}
+
+model InstallmentPlan {
+  id                String   @id @default(uuid())
+  totalAmount       Decimal
+  totalInstallments Int
+  startDate         DateTime
+
+  organizationId    String
+  organization      Organization @relation(fields: [organizationId], references: [id])
+
+  installments      Installment[]
+}
+
+model Installment {
+  id                String   @id @default(uuid())
+  installmentNumber Int
+  dueDate           DateTime
+  amount            Decimal
+
+  installmentPlanId String
+  transactionId     String   @unique
+
+  installmentPlan   InstallmentPlan @relation(fields: [installmentPlanId], references: [id])
+  transaction       Transaction     @relation(fields: [transactionId], references: [id])
+}
