@@ -2,7 +2,7 @@
 
 Sistema de controle financeiro pessoal e empresarial, integrante do ecossistema **Meu Corre**.
 
-Desenvolvido inicialmente como um estudo prático de arquitetura frontend e organização financeira, o projeto evolui agora para uma base de um futuro sistema financeiro profissional e completo, com emissão de notas fiscais e facilitando a vida do contador.
+Desenvolvido inicialmente como um estudo prático de arquitetura frontend e organização financeira, o projeto evolui agora para uma base de um futuro sistema financeiro profissional e completo, com emissão de notas fiscais e facilitando a vida do Vendedor.
 
 ---
 
