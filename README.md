@@ -14,7 +14,7 @@ O **Meu Corre Financeiro** nasce com o objetivo de organizar:
 - Controle de contas( saldo do dia)
 - Saldo mensal(faturamento e resultados em grafico)
 - Despesas parceladas (pode ser custo operacional, sera pagamento de parcela de financiamento por um periodo determinado, ou até a quitação e ao sinalizar aquitação do titulo criado, as parcelas são amortizadas dos sistema de forma automatica, e sinalizada no relatorio, quitações pagas, valor gasto com quitação/ valor gasto com parcelas para cada titulo financeiro criado)
-- custo operacional, gasto para manter o funcionamento,funcionários, agua, luz, custo de manutenção e  gasto fixas (salário, internet)
+- custo operacional, gasto para manter o funcionamento,funcionários, agua, luz, custo de manutenção e gasto fixas (salário, internet)
 - o titulo cheque pode ter a opção de Cheque trocado, e mostrar quanto foi o abatimento se for 5% 3%, e isso será abatido no custo operacionais do produto associado a entrada deste titulo financeiro de modo que eu tambem possa saber quanto eu estou perdendo ao trocar cheques, ou até mesmo, amortizar parcelamentos próprios como boletos e primissórias, entao o abatimento vale para titulo de entrada e saída.
 - Cartões de crédito e faturas (uso mais casual, porem importante)
 - Planejamento financeiro futuro ( podendo abrangir pessoal e proficional, como reforma, ampliação ou gasto programado)
@@ -25,7 +25,8 @@ A longo prazo, o sistema poderá integrar-se ao:
 - Gestão de clientes
 - Controle de vendas
 - ERP empresarial
-Mas a prioridade é aplicar a visão do produto e trabalhar a integração visual, experiencia de usuario, e usuabilidade em diferentes meios, seja computador ou pelo smartphone.
+  Mas a prioridade é aplicar a visão do produto e trabalhar a integração visual, experiencia de usuario, e usuabilidade em diferentes meios, seja computador ou pelo smartphone.
+
 ---
 
 ## 🧠 Origem do Projeto
@@ -45,12 +46,15 @@ Agora, o foco é aplicar conceitos como Diagramas de classes, entidade-relaciona
 ## 🏗️ Arquitetura Atual
 
 ### Frontend
+
 - React (PWA-ready)
 
 ### Backend
+
 - FastAPI
 
 ### Banco de Dados
+
 - SQLite
 
 ---
@@ -83,3 +87,12 @@ A nova versão será desenvolvida com:
 
 Guilherme Pereira Nascimento  
 Projeto integrante do ecossistema **Meu Corre**
+
+| Tipo              | Define            |
+| ----------------- | ----------------- |
+| DER               | Estrutura (dados) |
+| Regras de negócio | Comportamento     |
+| Use case          | Fluxo completo    |
+| Service           | Implementação     |
+
+proximo passo finalizar DER para criar as regras de negocio
