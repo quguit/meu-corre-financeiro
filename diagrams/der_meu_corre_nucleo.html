@@ -1,0 +1,122 @@
+<div id="erd-nucleo"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: '"Anthropic Sans", sans-serif',
+  themeVariables: {
+    darkMode: dark,
+    fontSize: '13px',
+    fontFamily: '"Anthropic Sans", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#c2c0b6' : '#3d3d3a',
+    primaryColor: dark ? '#1F3864' : '#E6F1FB',
+    primaryBorderColor: dark ? '#378ADD' : '#185FA5',
+  },
+});
+const diagram = `erDiagram
+  USUARIO {
+    int id PK
+    string nome
+    string email
+    string senha_hash
+    string tipo "pessoal | empresa"
+    timestamp criado_em
+  }
+
+  CONTA {
+    int id PK
+    int usuario_id FK
+    string nome
+    string tipo "corrente | poupanca | caixa | carteira"
+    decimal saldo_inicial
+    decimal saldo_atual
+    bool ativa
+    timestamp criado_em
+  }
+
+  PESSOA {
+    int id PK
+    int usuario_id FK
+    string nome
+    string tipo "cliente | fornecedor | funcionario | outro"
+    string documento
+    string contato
+  }
+
+  TITULO_FINANCEIRO {
+    int id PK
+    int usuario_id FK
+    int conta_id FK
+    string codigo
+    string tipo "receber | pagar"
+    string subtipo "simples | parcelado | cheque | cartao | planejamento"
+    string descricao
+    decimal valor_total
+    decimal valor_pago
+    string status "aberto | parcial | quitado | cancelado"
+    date vencimento
+    date competencia
+    string categoria
+    string observacao
+    timestamp criado_em
+    timestamp atualizado_em
+  }
+
+  TITULO_PESSOA {
+    int id PK
+    int titulo_id FK
+    int pessoa_id FK
+    string papel "emissor | beneficiario | avalista | endossado"
+    int ordem
+    timestamp associado_em
+  }
+
+  MOVIMENTACAO {
+    int id PK
+    int titulo_id FK
+    int conta_id FK
+    decimal valor
+    string tipo "entrada | saida | estorno"
+    date data_mov
+    string descricao
+    timestamp criado_em
+  }
+
+  USUARIO ||--o{ CONTA : possui
+  USUARIO ||--o{ PESSOA : cadastra
+  USUARIO ||--o{ TITULO_FINANCEIRO : cria
+  CONTA ||--o{ TITULO_FINANCEIRO : referencia
+  TITULO_FINANCEIRO ||--o{ TITULO_PESSOA : envolve
+  PESSOA ||--o{ TITULO_PESSOA : participa
+  TITULO_FINANCEIRO ||--o{ MOVIMENTACAO : gera
+  CONTA ||--o{ MOVIMENTACAO : afeta
+`;
+const { svg } = await mermaid.render('erd-nucleo-svg', diagram);
+document.getElementById('erd-nucleo').innerHTML = svg;
+document.querySelectorAll('#erd-nucleo svg.erDiagram .node').forEach(node => {
+  const firstPath = node.querySelector('path[d]');
+  if (!firstPath) return;
+  const d = firstPath.getAttribute('d');
+  const nums = d.match(/-?[\d.]+/g)?.map(Number);
+  if (!nums || nums.length < 8) return;
+  const xs = [nums[0], nums[2], nums[4], nums[6]];
+  const ys = [nums[1], nums[3], nums[5], nums[7]];
+  const x = Math.min(...xs), y = Math.min(...ys);
+  const w = Math.max(...xs) - x, h = Math.max(...ys) - y;
+  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  rect.setAttribute('x', x); rect.setAttribute('y', y);
+  rect.setAttribute('width', w); rect.setAttribute('height', h);
+  rect.setAttribute('rx', '8');
+  for (const a of ['fill', 'stroke', 'stroke-width', 'class', 'style']) {
+    if (firstPath.hasAttribute(a)) rect.setAttribute(a, firstPath.getAttribute(a));
+  }
+  firstPath.replaceWith(rect);
+});
+document.querySelectorAll('#erd-nucleo svg.erDiagram .row-rect-odd path, #erd-nucleo svg.erDiagram .row-rect-even path').forEach(p => {
+  p.setAttribute('stroke', 'none');
+});
+</script>

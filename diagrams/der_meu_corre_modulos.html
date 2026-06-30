@@ -1,0 +1,116 @@
+<div id="erd-mod"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: '"Anthropic Sans", sans-serif',
+  themeVariables: {
+    darkMode: dark,
+    fontSize: '13px',
+    fontFamily: '"Anthropic Sans", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#c2c0b6' : '#3d3d3a',
+  },
+});
+const diagram = `erDiagram
+  TITULO_FINANCEIRO {
+    int id PK
+    string subtipo "simples|parcelado|cheque|cartao|planejamento"
+    decimal valor_total
+    string status
+  }
+
+  PARCELAMENTO {
+    int id PK
+    int titulo_pai_id FK
+    int numero_parcela
+    int total_parcelas
+    decimal valor_parcela
+    date vencimento
+    string status "aberta | paga | amortizada | cancelada"
+    date data_pagamento
+    decimal valor_pago
+    string tipo_amortizacao "quitacao | desconto | normal"
+    string observacao
+  }
+
+  CHEQUE {
+    int id PK
+    int titulo_id FK
+    string numero_cheque
+    string banco
+    string agencia
+    string conta_bancaria
+    date data_emissao
+    date data_bom_para
+    bool foi_trocado
+    decimal percentual_abatimento
+    decimal valor_abatimento
+    string status "em_carteira | compensado | devolvido | trocado | cancelado"
+  }
+
+  CARTAO {
+    int id PK
+    int usuario_id FK
+    string nome
+    string bandeira
+    int dia_fechamento
+    int dia_vencimento
+    decimal limite
+  }
+
+  FATURA_CARTAO {
+    int id PK
+    int cartao_id FK
+    int titulo_id FK
+    int mes_ref
+    int ano_ref
+    decimal valor_total
+    string status "aberta | fechada | paga"
+    date vencimento
+  }
+
+  PLANEJAMENTO {
+    int id PK
+    int titulo_id FK
+    string tipo "reforma | compra | reserva | meta"
+    date data_alvo
+    decimal valor_alvo
+    decimal valor_acumulado
+    string recorrencia "unica | mensal | personalizada"
+  }
+
+  TITULO_FINANCEIRO ||--o{ PARCELAMENTO : divide
+  TITULO_FINANCEIRO ||--o| CHEQUE : detalha
+  TITULO_FINANCEIRO ||--o| PLANEJAMENTO : detalha
+  TITULO_FINANCEIRO ||--o| FATURA_CARTAO : referencia
+  CARTAO ||--o{ FATURA_CARTAO : gera
+`;
+const { svg } = await mermaid.render('erd-mod-svg', diagram);
+document.getElementById('erd-mod').innerHTML = svg;
+document.querySelectorAll('#erd-mod svg.erDiagram .node').forEach(node => {
+  const firstPath = node.querySelector('path[d]');
+  if (!firstPath) return;
+  const d = firstPath.getAttribute('d');
+  const nums = d.match(/-?[\d.]+/g)?.map(Number);
+  if (!nums || nums.length < 8) return;
+  const xs = [nums[0], nums[2], nums[4], nums[6]];
+  const ys = [nums[1], nums[3], nums[5], nums[7]];
+  const x = Math.min(...xs), y = Math.min(...ys);
+  const w = Math.max(...xs) - x, h = Math.max(...ys) - y;
+  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  rect.setAttribute('x', x); rect.setAttribute('y', y);
+  rect.setAttribute('width', w); rect.setAttribute('height', h);
+  rect.setAttribute('rx', '8');
+  for (const a of ['fill', 'stroke', 'stroke-width', 'class', 'style']) {
+    if (firstPath.hasAttribute(a)) rect.setAttribute(a, firstPath.getAttribute(a));
+  }
+  firstPath.replaceWith(rect);
+});
+document.querySelectorAll('#erd-mod svg.erDiagram .row-rect-odd path, #erd-mod svg.erDiagram .row-rect-even path').forEach(p => {
+  p.setAttribute('stroke', 'none');
+});
+</script>
