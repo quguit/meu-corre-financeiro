@@ -2,9 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.base import Base
 from db.session import engine
-
-# Importa todos os models para criar as tabelas
-import models  # noqa: F401
+import models  # noqa
 
 from services.auth.router import router as auth_router
 from services.conta.router import router as conta_router
@@ -14,7 +12,6 @@ from services.cheque.router import router as cheque_router
 from services.cartao.router import router as cartao_router
 from services.relatorio.router import router as relatorio_router
 
-# Cria as tabelas no banco na inicialização (em produção usar Alembic)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -25,19 +22,20 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Em produção: lista de origens permitidas
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(auth_router,        prefix="/auth",        tags=["Autenticação"])
-app.include_router(conta_router,       prefix="/contas",      tags=["Contas"])
-app.include_router(titulo_router,      prefix="/titulos",     tags=["Títulos"])
-app.include_router(parcelamento_router,prefix="/parcelamentos",tags=["Parcelamentos"])
-app.include_router(cheque_router,      prefix="/cheques",     tags=["Cheques"])
-app.include_router(cartao_router,      prefix="/cartoes",     tags=["Cartões"])
-app.include_router(relatorio_router,   prefix="/relatorios",  tags=["Relatórios"])
+app.include_router(auth_router, prefix="/auth", tags=["Autenticação"])
+app.include_router(conta_router, prefix="/contas", tags=["Contas"])
+app.include_router(titulo_router, prefix="/titulos", tags=["Títulos"])
+app.include_router(parcelamento_router, prefix="/parcelamentos", tags=["Parcelamentos"])
+app.include_router(cheque_router, prefix="/cheques", tags=["Cheques"])
+app.include_router(cartao_router, prefix="/cartoes", tags=["Cartões"])
+app.include_router(relatorio_router, prefix="/relatorios", tags=["Relatórios"])
+
 
 @app.get("/", tags=["Status"])
 def health_check():
