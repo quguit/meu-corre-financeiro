@@ -175,6 +175,12 @@ export default function Dashboard() {
                 >
                   ＋ Novo Título
                 </button>
+                <button
+                  onClick={() => navigate('/relatorio')}
+                  style={styles.btnAcao}
+                >
+                  📊 Relatório
+                </button>
               </div>
             </section>
           </>

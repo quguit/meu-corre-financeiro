@@ -6,19 +6,36 @@ import Cadastro from './pages/Cadastro'
 import Dashboard from './pages/Dashboard'
 import Contas from './pages/Contas'
 import Titulos from './pages/Titulos'
-
+import RotaProtegida from './components/RotaProtegida'
+import Relatorio from './pages/Relatorio'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        {/* Rotas públicas — qualquer um acessa */}
+        <Route path="/login"    element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Rotas protegidas — exige login */}
+        <Route path="/dashboard" element={
+          <RotaProtegida><Dashboard /></RotaProtegida>
+        } />
+        <Route path="/contas" element={
+          <RotaProtegida><Contas /></RotaProtegida>
+        } />
+        <Route path="/titulos" element={
+          <RotaProtegida><Titulos /></RotaProtegida>
+        } />
+        <Route path="/titulos/novo" element={
+          <RotaProtegida><Titulos /></RotaProtegida>
+        } />
+        <Route path="/relatorio" element={
+          <RotaProtegida><Relatorio /></RotaProtegida>
+        } />
+
+        {/* Qualquer rota desconhecida → login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
-        <Route path="/contas" element={<Contas />} />
-        <Route path="/titulos" element={<Titulos />} />
-        <Route path="/titulos/novo" element={<Titulos />} />
       </Routes>
     </BrowserRouter>
   )
