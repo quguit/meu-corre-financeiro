@@ -55,8 +55,8 @@ export default function Dashboard() {
           <h1 style={styles.headerTitulo}>💰 Meu Corre</h1>
           <p style={styles.headerSub}>Olá, {usuario?.nome?.split(' ')[0]}!</p>
         </div>
-        <button onClick={() => authService.logout()} style={styles.btnSair}>
-          Sair
+        <button onClick={() => navigate('/perfil')} style={styles.btnSair}>
+          👤 Perfil
         </button>
       </div>
 
